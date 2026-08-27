@@ -4,7 +4,7 @@ mod ui;
 mod json;
 
 use crate::app::App;
-use crate::json::{Colors, read_and_extract_json};
+use crate::json::{Colors, Cursorline, Lines, Settings, read_and_extract_colors, read_and_extract_settings};
 use crate::tui::Tui;
 
 use std::env::{args, current_dir, var};
@@ -47,7 +47,8 @@ fn main() -> color_eyre::Result<()> {
         Ok(value) => {
             println!("Found Kruste config at {}.", value);
             let config_file = value;
-            app.colors = read_and_extract_json(config_file);
+            app.colors = read_and_extract_colors(config_file.clone());
+            app.settings = read_and_extract_settings(config_file.clone());
         }
         Err(e) => {
             println!("Error: Couldn't find Kruste config!\n{}: {}", config_path_variable, e);
@@ -56,8 +57,17 @@ fn main() -> color_eyre::Result<()> {
                 text: "#FFFFFF".to_string(),
                 background: "#000000".to_string(),
                 border: "#FFFFFF".to_string(),
-                linenumber_fg: "#FFFFFF".to_string(),
-                linenumber_bg: "#808080".to_string()
+                lines: Lines {
+                    linenumber_fg: "#FFFFFF".to_string(),
+                    linenumber_bg: "#808080".to_string(),
+                    cursorline_fg: "#FFFFFF".to_string(),
+                    cursorline_bg: "#4b4b4b".to_string(),
+                },
+            };
+            app.settings = Settings {
+                cursorline: Cursorline {
+                    modifier: "".to_string(),
+                },
             }
         }
     }

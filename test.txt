@@ -1,12 +1,7 @@
+
 Hello, World!
 
-Test
-12345 + 67890
-Hallo, was geht. Das hier ist ein gottlos langer Text um zu testen wie groß der Editor ist. Also schauen wir mal, wie groß die ratatui_textarea::TextArea ist.
+12 + 43 = 55
+67 + 98 = 165
 
 Bye, World!
-
-Ok ok...
-Let's see...
-???
-!!!

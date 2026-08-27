@@ -1,6 +1,6 @@
 use ratatui_textarea::TextArea;
 
-use crate::json::Colors;
+use crate::json::{Colors, Settings};
 
 #[derive(Debug, Default)]
 pub struct App<'a> {
@@ -10,6 +10,7 @@ pub struct App<'a> {
     pub ask_save: bool,
     pub textarea: TextArea<'a>,
     pub colors: Colors,
+    pub settings: Settings,
 }
 
 impl<'a> App<'a> {

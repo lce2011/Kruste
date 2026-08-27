@@ -35,26 +35,10 @@ I recommend using the following location for your Kruste configuration:
 
 **UNIX** `~/.config/kruste/config.json`
 
-If Kruste can't find anything in that enviroment variable, e.g. when the variable isn't set, the editor will use the default config, which in JSON format would look like this:
-```json
-{
-    "theme": {
-        "colors": {
-            "text": "#FFFFFF",
-            "background": "#000000",
-            "border": "#FFFFFF",
-            "linenumber_fg": "#FFFFFF",
-            "linenumber_bg": "#808080"
-        }
-    }
-}
-```
+For the full customization docs, see [here](./docs/CUSTOMIZATION.md)
 
 > [!WARNING]
 > Kruste doesn't automatically generate any config.json file, even if it says, it uses the default config. The actual config.json has to be created seperatly.
-
-> [!WARNING]
-> The configuration system is still in development, so right now the only thing to configure are some colors of the editor. You can take the example above as template.
 
 <hr>
 

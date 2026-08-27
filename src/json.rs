@@ -11,6 +11,20 @@ struct Root {
 #[derive(Debug, Deserialize)]
 struct Theme {
     colors: Colors,
+    settings: Settings,
+}
+
+#[derive(Debug, Deserialize, Default)]
+pub struct Lines {
+    pub linenumber_fg: String,
+    pub linenumber_bg: String,
+    pub cursorline_fg: String,
+    pub cursorline_bg: String,
+}
+
+#[derive(Debug, Deserialize, Default)]
+pub struct Cursorline {
+    pub modifier: String
 }
 
 #[derive(Debug, Deserialize, Default)]
@@ -18,8 +32,12 @@ pub struct Colors {
     pub text: String,
     pub background: String,
     pub border: String,
-    pub linenumber_fg: String,
-    pub linenumber_bg: String,
+    pub lines: Lines,
+}
+
+#[derive(Debug, Deserialize, Default)]
+pub struct Settings {
+    pub cursorline: Cursorline,
 }
 
 impl Colors {
@@ -36,30 +54,64 @@ impl Colors {
     }
     
     pub fn read_linenumber_fg(&mut self) -> String {
-        self.linenumber_fg.clone()
+        self.lines.linenumber_fg.clone()
     }
 
     pub fn read_linenumber_bg(&mut self) -> String {
-        self.linenumber_bg.clone()
+        self.lines.linenumber_bg.clone()
+    }
+
+    pub fn read_cursorline_fg(&mut self) -> String {
+        self.lines.cursorline_fg.clone()
+    }
+
+    pub fn read_cursorline_bg(&mut self) -> String {
+        self.lines.cursorline_bg.clone()
     }
 }
 
-pub fn read_and_extract_json(json_file: String) -> Colors {
+impl Cursorline {
+    pub fn read_modifier(&mut self) -> String {
+        self.modifier.clone()
+    }
+}
+
+pub fn read_and_extract_colors(json_file: String) -> Colors {
     let json_data = read_to_string(json_file).unwrap();
     let json_root: Root = serde_json::from_str(&json_data).unwrap();
 
     let text_color = json_root.theme.colors.text;
     let bg_color = json_root.theme.colors.background;
     let border_color = json_root.theme.colors.border;
-    let linenumber_fg_color = json_root.theme.colors.linenumber_fg;
-    let linenumber_bg_color = json_root.theme.colors.linenumber_bg;
+
+    let linenumber_fg_color = json_root.theme.colors.lines.linenumber_fg;
+    let linenumber_bg_color = json_root.theme.colors.lines.linenumber_bg;
+    let cursorline_fg_color = json_root.theme.colors.lines.cursorline_fg;
+    let cursorline_bg_color = json_root.theme.colors.lines.cursorline_bg;
 
     Colors {
         text: text_color,
         background: bg_color,
         border: border_color,
-        linenumber_fg: linenumber_fg_color,
-        linenumber_bg: linenumber_bg_color,
+        lines: Lines {
+            linenumber_fg: linenumber_fg_color,
+            linenumber_bg: linenumber_bg_color,
+            cursorline_fg: cursorline_fg_color,
+            cursorline_bg: cursorline_bg_color,
+        },
+    }
+}
+
+pub fn read_and_extract_settings(json_file: String) -> Settings {
+    let json_data = read_to_string(json_file).unwrap();
+    let json_root: Root = serde_json::from_str(&json_data).unwrap();
+
+    let cursorline_modifier = json_root.theme.settings.cursorline.modifier;
+
+    Settings {
+        cursorline: Cursorline {
+            modifier: cursorline_modifier,
+        },
     }
 }
 

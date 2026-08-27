@@ -1,12 +1,12 @@
-# Cruste
+# Kruste - ***K**eyboard-based **Rust**y **E**ditor*
 
-*Cruste is an command-line, keyboard only text editor written in Rust using Ratatui & Crossterm.*
+*Kruste is an command-line, keyboard only text editor written in Rust using Ratatui & Crossterm.*
 
 <hr>
 
 ### Open a file
 
-`cruste <file/file-path>`
+`kruste <file/file-path>`
 
 > [!NOTE]
-> If the file at the given path doesn't exist, Cruste automatically creates the file.
+> If the file at the given path doesn't exist, Kruste automatically creates the file.

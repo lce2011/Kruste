@@ -19,8 +19,9 @@ pub fn render_editor(app: &mut App, frame: &mut Frame) {
     let block = Block::default()
                 .title(format!(" {} ", app.file_name))
                 .title_alignment(Alignment::Center)
-                .title_bottom(format!(" {} ", app.file_path))
-                .title_alignment(Alignment::Left)
+                .title_bottom(format!(
+                    " {}  |  'Esc' Exit & Save  |  'E' When in Esc, go back to editor ",
+                    app.file_path))
                 .borders(Borders::ALL)
                 .border_type(BorderType::Rounded)
                 .border_style(Style::default().fg(border_rgb_color))
@@ -52,8 +53,8 @@ pub fn render_ask_save(app: &mut App, frame: &mut Frame) {
         .fg(text_rgb_color);
     let centered_area = frame.area()
         .centered(
-            Constraint::Percentage(15), 
-            Constraint::Percentage(5));
+            Constraint::Percentage(15),
+            Constraint::Percentage(8));
     let paragraph = Paragraph::new("'y' Yes  |  'n' No")
         .alignment(Alignment::Center)
         .block(block);

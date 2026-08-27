@@ -70,6 +70,7 @@ fn main() -> color_eyre::Result<()> {
 
             if let Event::Key(key) = read()? {
                 match key.code {
+                    KeyCode::Char('e') => app.ask_save = false,
                     KeyCode::Char('n') => app.quit(),
                     KeyCode::Char('y') => {
                         file.write_all(format!("{}", current_editor_content).as_bytes())?;

@@ -1,6 +1,6 @@
 [package]
 name = "kruste"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2024"
 license = "MIT"
 authors = ["YooTrickFrame/lce2011"]
@@ -22,7 +22,7 @@ codegen-units = 256
 opt-level = 2
 
 [profile.release]
-opt-level = 3
+opt-level = "s"
 lto = "thin"
 codegen-units = 1
 strip = true

@@ -39,8 +39,8 @@ impl Tui {
         Ok(())
     }
 
-    pub fn draw_ask_save(&mut self) -> color_eyre::Result<()> {
-        self.terminal.draw(|frame| ui::render_ask_save(frame))?;
+    pub fn draw_ask_save(&mut self, app: &mut App) -> color_eyre::Result<()> {
+        self.terminal.draw(|frame| ui::render_ask_save(app, frame))?;
         Ok(())
     }
 

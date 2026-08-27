@@ -1,14 +1,21 @@
-use crate::app::App;
-
+use crate::{app::App, json::parse_hex_color};
 
 use ratatui::{
     Frame,
     layout::{Alignment, Constraint},
-    style::{Color, Style},
+    style::{Style, Stylize},
     widgets::{Block, BorderType, Borders, Clear, Padding, Paragraph},
 };
 
 pub fn render_editor(app: &mut App, frame: &mut Frame) {
+    let text_hex_color = app.colors.read_text();
+    let bg_hex_color = app.colors.read_bg();
+    let border_hex_color = app.colors.read_border();
+
+    let text_rgb_color = parse_hex_color(text_hex_color);
+    let bg_rgb_color = parse_hex_color(bg_hex_color);
+    let border_rgb_color = parse_hex_color(border_hex_color);
+
     let block = Block::default()
                 .title(format!(" {} ", app.file_name))
                 .title_alignment(Alignment::Center)
@@ -16,26 +23,38 @@ pub fn render_editor(app: &mut App, frame: &mut Frame) {
                 .title_alignment(Alignment::Left)
                 .borders(Borders::ALL)
                 .border_type(BorderType::Rounded)
-                .border_style(Style::default().fg(Color::White))
-                .padding(Padding::uniform(0));
+                .border_style(Style::default().fg(border_rgb_color))
+                .padding(Padding::uniform(0))
+                .bg(bg_rgb_color)
+                .fg(text_rgb_color);
     app.textarea.set_block(block);
 
     frame.render_widget(&app.textarea, frame.area());
 }
 
-pub fn render_ask_save(frame: &mut Frame) {
+pub fn render_ask_save(app: &mut App, frame: &mut Frame) {
+    let text_hex_color = app.colors.read_text();
+    let bg_hex_color = app.colors.read_bg();
+    let border_hex_color = app.colors.read_border();
+
+    let text_rgb_color = parse_hex_color(text_hex_color);
+    let bg_rgb_color = parse_hex_color(bg_hex_color);
+    let border_rgb_color = parse_hex_color(border_hex_color);
+
     let block = Block::default()
         .title(" Save to file? ")
         .title_alignment(Alignment::Center)
         .borders(Borders::ALL)
         .border_type(BorderType::Rounded)
-        .border_style(Style::default().fg(Color::White))
-        .padding(Padding::uniform(0));
+        .border_style(Style::default().fg(border_rgb_color))
+        .padding(Padding::uniform(0))
+        .bg(bg_rgb_color)
+        .fg(text_rgb_color);
     let centered_area = frame.area()
         .centered(
-            Constraint::Percentage(60), 
-            Constraint::Percentage(20));
-    let paragraph = Paragraph::new("<'y' Yes  |  'n' No")
+            Constraint::Percentage(15), 
+            Constraint::Percentage(5));
+    let paragraph = Paragraph::new("'y' Yes  |  'n' No")
         .alignment(Alignment::Center)
         .block(block);
 

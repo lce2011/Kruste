@@ -1,3 +1,7 @@
+# 0.2.3
+- Added cursorline
+- Added ability to customize the cursorline colors
+
 # 0.2.2
 - Added linenumbers
 - Added ability to customize the linenumber colors

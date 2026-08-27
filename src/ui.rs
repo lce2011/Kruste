@@ -8,39 +8,38 @@ use ratatui::{
 };
 
 pub fn render_editor(app: &mut App, frame: &mut Frame) {
-    let text_hex_color = app.colors.read_text();
-    let bg_hex_color = app.colors.read_bg();
-    let border_hex_color = app.colors.read_border();
-
-    let text_rgb_color = parse_hex_color(text_hex_color);
-    let bg_rgb_color = parse_hex_color(bg_hex_color);
-    let border_rgb_color = parse_hex_color(border_hex_color);
+    let text_rgb_color = parse_hex_color(app.colors.read_text());
+    let bg_rgb_color = parse_hex_color(app.colors.read_bg());
+    let border_rgb_color = parse_hex_color(app.colors.read_border());
+    let linenumber_fg_rgb_color = parse_hex_color(app.colors.read_linenumber_fg());
+    let linenumber_bg_rgb_color = parse_hex_color(app.colors.read_linenumber_bg());
 
     let block = Block::default()
-                .title(format!(" {} ", app.file_name))
-                .title_alignment(Alignment::Center)
-                .title_bottom(format!(
-                    " {}  |  'Esc' Exit & Save  |  'E' When in Esc, go back to editor ",
-                    app.file_path))
-                .borders(Borders::ALL)
-                .border_type(BorderType::Rounded)
-                .border_style(Style::default().fg(border_rgb_color))
-                .padding(Padding::uniform(0))
-                .bg(bg_rgb_color)
-                .fg(text_rgb_color);
+        .title(format!(" {} ", app.file_name))
+        .title_alignment(Alignment::Center)
+        .title_bottom(format!(
+            " {}  |  'Esc' Exit & Save  |  'E' When in Esc, go back to editor ",
+            app.file_path))
+        .borders(Borders::ALL)
+        .border_type(BorderType::Rounded)
+        .border_style(Style::default().fg(border_rgb_color))
+        .padding(Padding::uniform(0))
+        .bg(bg_rgb_color)
+        .fg(text_rgb_color);
+    let linenumber_style = Style::default()
+        .fg(linenumber_fg_rgb_color)
+        .bg(linenumber_bg_rgb_color);
+
+    app.textarea.set_line_number_style(linenumber_style);
     app.textarea.set_block(block);
 
     frame.render_widget(&app.textarea, frame.area());
 }
 
 pub fn render_ask_save(app: &mut App, frame: &mut Frame) {
-    let text_hex_color = app.colors.read_text();
-    let bg_hex_color = app.colors.read_bg();
-    let border_hex_color = app.colors.read_border();
-
-    let text_rgb_color = parse_hex_color(text_hex_color);
-    let bg_rgb_color = parse_hex_color(bg_hex_color);
-    let border_rgb_color = parse_hex_color(border_hex_color);
+    let text_rgb_color = parse_hex_color(app.colors.read_text());
+    let bg_rgb_color = parse_hex_color(app.colors.read_bg());
+    let border_rgb_color = parse_hex_color(app.colors.read_border());
 
     let block = Block::default()
         .title(" Save to file? ")

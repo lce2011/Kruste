@@ -18,6 +18,8 @@ pub struct Colors {
     pub text: String,
     pub background: String,
     pub border: String,
+    pub linenumber_fg: String,
+    pub linenumber_bg: String,
 }
 
 impl Colors {
@@ -32,6 +34,14 @@ impl Colors {
     pub fn read_border(&mut self) -> String {
         self.border.clone()
     }
+    
+    pub fn read_linenumber_fg(&mut self) -> String {
+        self.linenumber_fg.clone()
+    }
+
+    pub fn read_linenumber_bg(&mut self) -> String {
+        self.linenumber_bg.clone()
+    }
 }
 
 pub fn read_and_extract_json(json_file: String) -> Colors {
@@ -40,12 +50,16 @@ pub fn read_and_extract_json(json_file: String) -> Colors {
 
     let text_color = json_root.theme.colors.text;
     let bg_color = json_root.theme.colors.background;
-    let border = json_root.theme.colors.border;
+    let border_color = json_root.theme.colors.border;
+    let linenumber_fg_color = json_root.theme.colors.linenumber_fg;
+    let linenumber_bg_color = json_root.theme.colors.linenumber_bg;
 
     Colors {
         text: text_color,
         background: bg_color,
-        border: border
+        border: border_color,
+        linenumber_fg: linenumber_fg_color,
+        linenumber_bg: linenumber_bg_color,
     }
 }
 

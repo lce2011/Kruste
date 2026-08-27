@@ -55,7 +55,9 @@ fn main() -> color_eyre::Result<()> {
             app.colors = Colors {
                 text: "#FFFFFF".to_string(),
                 background: "#000000".to_string(),
-                border: "#FFFFFF".to_string()
+                border: "#FFFFFF".to_string(),
+                linenumber_fg: "#FFFFFF".to_string(),
+                linenumber_bg: "#808080".to_string()
             }
         }
     }

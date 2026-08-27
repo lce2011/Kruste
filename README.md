@@ -42,7 +42,9 @@ If Kruste can't find anything in that enviroment variable, e.g. when the variabl
         "colors": {
             "text": "#FFFFFF",
             "background": "#000000",
-            "border": "#FFFFFF"
+            "border": "#FFFFFF",
+            "linenumber_fg": "#FFFFFF",
+            "linenumber_bg": "#808080"
         }
     }
 }
@@ -52,7 +54,7 @@ If Kruste can't find anything in that enviroment variable, e.g. when the variabl
 > Kruste doesn't automatically generate any config.json file, even if it says, it uses the default config. The actual config.json has to be created seperatly.
 
 > [!WARNING]
-> The configuration system is still in development, so right now the only thing to configure are the text, background and border colors. You can take the example above as template.
+> The configuration system is still in development, so right now the only thing to configure are some colors of the editor. You can take the example above as template.
 
 <hr>
 

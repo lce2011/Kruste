@@ -16,7 +16,6 @@ serde_json = "1.0.151"
 [profile.dev]
 opt-level = 1
 debug = true
-incrementel = true
 codegen-units = 256
 
 [profile.dev.package."*"]

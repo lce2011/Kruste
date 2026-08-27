@@ -4,6 +4,18 @@
 
 <hr>
 
+### Installation & Building
+
+**Windows** Go to the Release tab and download the latest `kruste.exe`
+
+**UNIX** As there aren't any pre-built binarys for MacOS, Linux or any UNIX-like System, you need to built thhe editor from source:
+
+1. Clone the project: `git clone https://github.com/lce2011/Kruste.git`
+2. Go to the directory and build the project: `cargo build --release`
+3. The Kruste binary now sits inside `./target/release/` or `./target/debug/`, incase you built without the `--release` flag.
+
+<hr>
+
 ### Open a file
 
 `kruste <path>`
@@ -41,6 +53,8 @@ If Kruste can't find anything in that enviroment variable, e.g. when the variabl
 
 > [!WARNING]
 > The configuration system is still in development, so right now the only thing to configure are the text, background and border colors. You can take the example above as template.
+
+<hr>
 
 ### Bugs & Issues
 

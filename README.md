@@ -8,7 +8,7 @@
 
 **Windows** Go to the Release tab and download the latest `kruste.exe`
 
-**UNIX** As there aren't any pre-built binarys for MacOS, Linux or any UNIX-like System, you need to built thhe editor from source:
+**UNIX** As there aren't any pre-built binarys for MacOS, Linux or any UNIX-like System, you need to built the editor from source:
 
 1. Clone the project: `git clone https://github.com/lce2011/Kruste.git`
 2. Go to the directory and build the project: `cargo build --release`

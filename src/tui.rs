@@ -34,6 +34,12 @@ impl Tui {
         Ok(())
     }
 
+    pub fn exit(&mut self) -> color_eyre::Result<()> {
+        Self::reset()?;
+        Ok(())
+    }
+
+    /* PUBLIC - DRAW FUNCS */
     pub fn draw_editor(&mut self, app: &mut App) -> color_eyre::Result<()> {
         self.terminal.draw(|frame| ui::render_editor(app, frame))?;
         Ok(())
@@ -44,8 +50,8 @@ impl Tui {
         Ok(())
     }
 
-    pub fn exit(&mut self) -> color_eyre::Result<()> {
-        Self::reset()?;
+    pub fn draw_search_overlay(&mut self, app: &mut App) -> color_eyre::Result {
+        self.terminal.draw(|frame| ui::render_search_overlay(app, frame))?;
         Ok(())
     }
 

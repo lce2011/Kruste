@@ -1,7 +1,3 @@
-
 Hello, World!
-
-12 + 43 = 55
-67 + 98 = 165
 
 Bye, World!

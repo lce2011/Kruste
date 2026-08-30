@@ -8,6 +8,7 @@ pub struct App<'a> {
     pub file_path: String,
     pub should_quit: bool,
     pub ask_save: bool,
+    pub search_overlay: bool,
     pub textarea: TextArea<'a>,
     pub colors: Colors,
     pub settings: Settings,

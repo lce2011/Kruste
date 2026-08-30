@@ -1,8 +1,9 @@
-use crate::{app::App, json::parse_hex_color};
+use crate::{app::App, helpers::centered_rect, json::parse_hex_color};
 
 use ratatui::{
-    Frame, layout::{Alignment, Constraint}, style::{Modifier, Style, Stylize}, widgets::{Block, BorderType, Borders, Clear, Padding, Paragraph},
+    Frame, layout::{Alignment}, style::{Modifier, Style, Stylize}, widgets::{Block, BorderType, Borders, Clear, Padding, Paragraph},
 };
+use ratatui_textarea::TextArea;
 
 pub fn render_editor(app: &mut App, frame: &mut Frame) {
     let text_rgb_color = parse_hex_color(app.colors.read_text());
@@ -69,14 +70,44 @@ pub fn render_ask_save(app: &mut App, frame: &mut Frame) {
         .padding(Padding::uniform(0))
         .bg(bg_rgb_color)
         .fg(text_rgb_color);
-    let centered_area = frame.area()
-        .centered(
-            Constraint::Percentage(15),
-            Constraint::Percentage(8));
+    let centered_area = centered_rect(
+        15,
+        8,
+        frame.area()
+    );
     let paragraph = Paragraph::new("'y' Yes  |  'n' No")
         .alignment(Alignment::Center)
         .block(block);
 
     frame.render_widget(Clear, centered_area);
     frame.render_widget(paragraph, centered_area);
+}
+
+pub fn render_search_overlay(app: &mut App, frame: &mut Frame) {
+    // render_editor(app, frame);
+
+    let text_rgb_color = parse_hex_color(app.colors.read_text());
+    let bg_rgb_color = parse_hex_color(app.colors.read_bg());
+    let border_rgb_color = parse_hex_color(app.colors.read_border());
+
+    let block = Block::default()
+        .title(" Search ")
+        .title_alignment(Alignment::Center)
+        .borders(Borders::ALL)
+        .border_type(BorderType::Rounded)
+        .border_style(Style::default().fg(border_rgb_color))
+        .padding(Padding::uniform(0))
+        .bg(bg_rgb_color)
+        .fg(text_rgb_color);
+    let search_overlay_area = centered_rect(
+        60,
+        30,
+        frame.area()
+    );
+
+    let mut textarea = TextArea::default();
+    textarea.set_block(block);
+    
+    frame.render_widget(Clear, search_overlay_area);
+    frame.render_widget(&textarea, search_overlay_area);
 }

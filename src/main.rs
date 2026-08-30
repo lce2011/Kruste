@@ -2,16 +2,20 @@ mod app;
 mod tui;
 mod ui;
 mod json;
+mod search;
+mod helpers;
 
 use crate::app::App;
 use crate::json::{Colors, Cursorline, Lines, Settings, read_and_extract_colors, read_and_extract_settings};
+use crate::search::SearchBox;
 use crate::tui::Tui;
 
 use std::env::{args, current_dir, var};
-use std::fs::{File, read_to_string, exists};
+use std::fs::{File, read_to_string, exists, OpenOptions};
 use std::io::Write;
 
 use crossterm::event::KeyModifiers;
+use ratatui::style::{Color, Modifier, Style};
 use ratatui::{
     backend::CrosstermBackend,
     Terminal,
@@ -31,12 +35,16 @@ fn main() -> color_eyre::Result<()> {
 
     if exists(&file_path)? {
         file_content = read_to_string(&file_path)?;
-        file  = File::create(&file_path)?;
+        file  = OpenOptions::new()
+            .write(true)
+            .create(false)
+            .open(&file_path)?;
     } else {
         file  = File::create(&file_path)?;
     }
     
     let mut app = App::new(file_name, file_path, &file_content);
+    let mut searchbox = SearchBox::new();
     
     let backend = CrosstermBackend::new(std::io::stderr());
     let terminal = Terminal::new(backend)?;
@@ -91,12 +99,33 @@ fn main() -> color_eyre::Result<()> {
                     _ => {}
                 }
             }
+        } else if app.search_overlay {
+            tui.draw_search_overlay(&mut app)?;
+
+            if let Event::Key(key) = read()? {
+                match key.code {
+                    KeyCode::Enter => {
+                        app.search_overlay = false;
+                    }
+                    KeyCode::Char(c) if key.modifiers.contains(KeyModifiers::CONTROL | KeyModifiers::ALT) => {
+                        searchbox.textarea.input(Input {
+                            key: Key::Char(c),
+                            ctrl: false,
+                            alt: false,
+                            shift: false,
+                        });
+                    }
+                    _ => {
+                        searchbox.textarea.input(key);
+                    }
+                }
+            }
         } else {
             tui.draw_editor(&mut app)?;
 
             if let Event::Key(key) = read()? {
                 match key.code {
-                    KeyCode::Esc  => {
+                    KeyCode::Esc => {
                         if file_content != app.textarea.lines().join("\n") {
                             app.ask_save = true;
                         } else {
@@ -111,6 +140,9 @@ fn main() -> color_eyre::Result<()> {
                             alt: false,
                             shift: false,
                         });
+                    }
+                    KeyCode::Char('f') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+                        app.search_overlay = true;
                     }
                     _ => {
                         app.textarea.input(key);

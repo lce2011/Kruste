@@ -14,14 +14,11 @@ use std::env::{args, current_dir, var};
 use std::fs::{File, read_to_string, exists, OpenOptions};
 use std::io::Write;
 
-use crossterm::event::KeyModifiers;
-use ratatui::style::{Color, Modifier, Style};
 use ratatui::{
     backend::CrosstermBackend,
     Terminal,
     crossterm::event::{Event, KeyCode, read},
 };
-use ratatui_textarea::{Input, Key};
 
 fn main() -> color_eyre::Result<()> {
     let args: Vec<String> = args().collect();
@@ -103,51 +100,13 @@ fn main() -> color_eyre::Result<()> {
             tui.draw_search_overlay(&mut app)?;
 
             if let Event::Key(key) = read()? {
-                match key.code {
-                    KeyCode::Enter => {
-                        app.search_overlay = false;
-                    }
-                    KeyCode::Char(c) if key.modifiers.contains(KeyModifiers::CONTROL | KeyModifiers::ALT) => {
-                        searchbox.textarea.input(Input {
-                            key: Key::Char(c),
-                            ctrl: false,
-                            alt: false,
-                            shift: false,
-                        });
-                    }
-                    _ => {
-                        searchbox.textarea.input(key);
-                    }
-                }
+                searchbox.input(&mut app, key);
             }
         } else {
             tui.draw_editor(&mut app)?;
 
             if let Event::Key(key) = read()? {
-                match key.code {
-                    KeyCode::Esc => {
-                        if file_content != app.textarea.lines().join("\n") {
-                            app.ask_save = true;
-                        } else {
-                            file.write_all(format!("{}", file_content).as_bytes())?;
-                            app.quit();
-                        }
-                    }
-                    KeyCode::Char(c) if key.modifiers.contains(KeyModifiers::CONTROL | KeyModifiers::ALT) => {
-                        app.textarea.input(Input {
-                            key: Key::Char(c),
-                            ctrl: false,
-                            alt: false,
-                            shift: false,
-                        });
-                    }
-                    KeyCode::Char('f') if key.modifiers.contains(KeyModifiers::CONTROL) => {
-                        app.search_overlay = true;
-                    }
-                    _ => {
-                        app.textarea.input(key);
-                    }
-                }
+                app.input(&mut file, file_content.clone(), key);
             }
         }
     }

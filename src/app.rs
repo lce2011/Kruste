@@ -1,4 +1,7 @@
-use ratatui_textarea::TextArea;
+use std::{fs::File, io::Write};
+
+use crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
+use ratatui_textarea::{Input, Key, TextArea};
 
 use crate::json::{Colors, Settings};
 
@@ -27,5 +30,32 @@ impl<'a> App<'a> {
 
     pub fn quit(&mut self) {
         self.should_quit = true;
+    }
+
+    pub fn input(&mut self, file: &mut File, file_content: String, key: KeyEvent) {
+        match key.code {
+            KeyCode::Esc => {
+                if file_content != self.textarea.lines().join("\n") {
+                    self.ask_save = true;
+                } else {
+                    let _ = file.write_all(format!("{}", file_content).as_bytes());
+                    self.quit();
+                }
+            }
+            KeyCode::Char(c) if key.modifiers.contains(KeyModifiers::CONTROL | KeyModifiers::ALT) => {
+                self.textarea.input(Input {
+                    key: Key::Char(c),
+                    ctrl: false,
+                    alt: false,
+                    shift: false,
+                });
+            }
+            KeyCode::Char('f') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+                self.search_overlay = true;
+            }
+            _ => {
+                self.textarea.input(key);
+            }
+        }
     }
 }

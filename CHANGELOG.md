@@ -1,3 +1,9 @@
+# 0.3.0
+- Added Search Bar
+- Added Search Bar customization supportt
+- Critical Bug Fix!!!
+- Linux Prebuilt Bynarys (AppImages soon)
+
 # 0.2.3
 - Added cursorline
 - Added ability to customize the cursorline colors

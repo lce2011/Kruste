@@ -14,6 +14,10 @@ If Kruste can't find anything in that enviroment variable, e.g. when the variabl
                 "cursorline_fg": "#FFFFFF",
                 "cursorline_bg": "#4b4b4b",
             },
+            "search": {
+                "text": "#FFFFFF",
+                "background": "#00FF00",
+            },
         },
         "settings": {
             "cursorline": {
@@ -29,12 +33,15 @@ If Kruste can't find anything in that enviroment variable, e.g. when the variabl
 ### Colors
 
 Changeable colors:
-- Text (aka Forground/fg)
+- Text (aka Foreground/fg)
 - Background (aka bg)
 - Border: Frames the editor
 - Lines
     - Linenumber fg & bg
     - Cursorline fg & bg
+- Search Bar
+    - Text (aka Foreground/fg)
+    - Background (aka bg)
 
 <hr>
 

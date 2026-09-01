@@ -8,7 +8,20 @@
 
 **Windows** Go to the Release tab and download the latest `kruste.exe`
 
-**UNIX** As there aren't any pre-built binarys for MacOS, Linux or any UNIX-like System, you need to built the editor from source:
+**UNIX** Go to the Release tab and download the latest Linux binary for your libc. Support exists for:
+- x86_64 glibc
+- x86_64 musl-libc
+- aarch64 Android BIONIC
+
+### Buiding
+
+**Windows**
+
+1. Clone the project: `git clone https://github.com/lce2011/Kruste.git`
+2. Go to the directory and build the project: `.\scripts\full-build.bat`
+3. The Kruste bikary now sits inside `.\target\release`
+
+**UNIX**
 
 1. Clone the project: `git clone https://github.com/lce2011/Kruste.git`
 2. Go to the directory and build the project: `cargo build --release`

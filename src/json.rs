@@ -23,8 +23,9 @@ pub struct Lines {
 }
 
 #[derive(Debug, Deserialize, Default)]
-pub struct Cursorline {
-    pub modifier: String
+pub struct Search {
+    pub text: String,
+    pub background: String,
 }
 
 #[derive(Debug, Deserialize, Default)]
@@ -33,6 +34,12 @@ pub struct Colors {
     pub background: String,
     pub border: String,
     pub lines: Lines,
+    pub search: Search,
+}
+
+#[derive(Debug, Deserialize, Default)]
+pub struct Cursorline {
+    pub modifier: String
 }
 
 #[derive(Debug, Deserialize, Default)]
@@ -68,6 +75,14 @@ impl Colors {
     pub fn read_cursorline_bg(&mut self) -> String {
         self.lines.cursorline_bg.clone()
     }
+
+    pub fn read_search_fg(&mut self) -> String {
+        self.search.text.clone()
+    }
+
+    pub fn read_search_bg(&mut self) -> String {
+        self.search.background.clone()
+    }
 }
 
 impl Cursorline {
@@ -89,6 +104,9 @@ pub fn read_and_extract_colors(json_file: String) -> Colors {
     let cursorline_fg_color = json_root.theme.colors.lines.cursorline_fg;
     let cursorline_bg_color = json_root.theme.colors.lines.cursorline_bg;
 
+    let search_fg_color = json_root.theme.colors.search.text;
+    let search_bg_color = json_root.theme.colors.search.background;
+
     Colors {
         text: text_color,
         background: bg_color,
@@ -98,6 +116,10 @@ pub fn read_and_extract_colors(json_file: String) -> Colors {
             linenumber_bg: linenumber_bg_color,
             cursorline_fg: cursorline_fg_color,
             cursorline_bg: cursorline_bg_color,
+        },
+        search: Search {
+            text: search_fg_color,
+            background: search_bg_color,
         },
     }
 }

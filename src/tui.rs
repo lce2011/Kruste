@@ -5,7 +5,7 @@ use ratatui::crossterm::{
     event::{DisableMouseCapture, EnableMouseCapture}, execute,
 };
 
-use crate::app::App;
+use crate::{app::App, search::SearchBox};
 use crate::ui;
 
 pub type CrosstermTerminal = ratatui::Terminal<ratatui::backend::CrosstermBackend<std::io::Stderr>>;
@@ -50,8 +50,8 @@ impl Tui {
         Ok(())
     }
 
-    pub fn draw_search_overlay(&mut self, app: &mut App) -> color_eyre::Result {
-        self.terminal.draw(|frame| ui::render_search_overlay(app, frame))?;
+    pub fn draw_search_overlay(&mut self, app: &mut App, searchbox: &mut SearchBox) -> color_eyre::Result {
+        self.terminal.draw(|frame| ui::render_search_overlay(app, searchbox, frame))?;
         Ok(())
     }
 

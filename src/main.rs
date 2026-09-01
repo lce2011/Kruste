@@ -6,7 +6,7 @@ mod search;
 mod helpers;
 
 use crate::app::App;
-use crate::json::{Colors, Cursorline, Lines, Settings, read_and_extract_colors, read_and_extract_settings};
+use crate::json::{Colors, Cursorline, Lines, Search, Settings, read_and_extract_colors, read_and_extract_settings};
 use crate::search::SearchBox;
 use crate::tui::Tui;
 
@@ -32,12 +32,12 @@ fn main() -> color_eyre::Result<()> {
 
     if exists(&file_path)? {
         file_content = read_to_string(&file_path)?;
-        file  = OpenOptions::new()
+        file = OpenOptions::new()
             .write(true)
             .create(false)
             .open(&file_path)?;
     } else {
-        file  = File::create(&file_path)?;
+        file = File::create(&file_path)?;
     }
     
     let mut app = App::new(file_name, file_path, &file_content);
@@ -68,6 +68,10 @@ fn main() -> color_eyre::Result<()> {
                     cursorline_fg: "#FFFFFF".to_string(),
                     cursorline_bg: "#4b4b4b".to_string(),
                 },
+                search: Search {
+                    text: "#FFFFFF".to_string(),
+                    background: "#00FF00".to_string(),
+                },
             };
             app.settings = Settings {
                 cursorline: Cursorline {
@@ -97,7 +101,7 @@ fn main() -> color_eyre::Result<()> {
                 }
             }
         } else if app.search_overlay {
-            tui.draw_search_overlay(&mut app)?;
+            tui.draw_search_overlay(&mut app, &mut searchbox)?;
 
             if let Event::Key(key) = read()? {
                 searchbox.input(&mut app, key);

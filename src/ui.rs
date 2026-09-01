@@ -1,9 +1,14 @@
-use crate::{app::App, helpers::centered_rect, json::parse_hex_color};
+use crate::{app::App, helpers::top_rect};
+use crate::helpers::centered_rect;
+use crate::json::parse_hex_color;
+use crate::search::SearchBox;
 
 use ratatui::{
-    Frame, layout::{Alignment}, style::{Modifier, Style, Stylize}, widgets::{Block, BorderType, Borders, Clear, Padding, Paragraph},
+    Frame,
+    layout::Alignment,
+    style::{Modifier, Style, Stylize},
+    widgets::{Block, BorderType, Borders, Clear, Padding, Paragraph},
 };
-use ratatui_textarea::TextArea;
 
 pub fn render_editor(app: &mut App, frame: &mut Frame) {
     let text_rgb_color = parse_hex_color(app.colors.read_text());
@@ -83,8 +88,8 @@ pub fn render_ask_save(app: &mut App, frame: &mut Frame) {
     frame.render_widget(paragraph, centered_area);
 }
 
-pub fn render_search_overlay(app: &mut App, frame: &mut Frame) {
-    // render_editor(app, frame);
+pub fn render_search_overlay(app: &mut App, searchbox: &mut SearchBox, frame: &mut Frame) {
+    render_editor(app, frame);
 
     let text_rgb_color = parse_hex_color(app.colors.read_text());
     let bg_rgb_color = parse_hex_color(app.colors.read_bg());
@@ -96,18 +101,21 @@ pub fn render_search_overlay(app: &mut App, frame: &mut Frame) {
         .borders(Borders::ALL)
         .border_type(BorderType::Rounded)
         .border_style(Style::default().fg(border_rgb_color))
-        .padding(Padding::uniform(0))
         .bg(bg_rgb_color)
         .fg(text_rgb_color);
-    let search_overlay_area = centered_rect(
+    let search_overlay_area = top_rect(
         60,
-        30,
+        3,
         frame.area()
     );
+    let style = Style::default()
+        .bg(bg_rgb_color)
+        .fg(text_rgb_color);
 
-    let mut textarea = TextArea::default();
-    textarea.set_block(block);
+    searchbox.textarea.set_placeholder_text("Grep...");
+    searchbox.textarea.set_placeholder_style(style);
+    searchbox.textarea.set_block(block);
     
     frame.render_widget(Clear, search_overlay_area);
-    frame.render_widget(&textarea, search_overlay_area);
+    frame.render_widget(&searchbox.textarea, search_overlay_area);
 }

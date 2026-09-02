@@ -19,7 +19,7 @@
 
 1. Clone the project: `git clone https://github.com/lce2011/Kruste.git`
 2. Go to the directory and build the project: `.\scripts\full-build.bat`
-3. The Kruste bikary now sits inside `.\target\release`
+3. The Kruste binary now sits inside `.\target\release`
 
 **UNIX**
 

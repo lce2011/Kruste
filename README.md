@@ -15,9 +15,8 @@
 
 ### Buiding
 
-<<<<<<< HEAD
 Check [here](./docs/BUILDING.md) for the full building guide.
-=======
+
 **Windows**
 
 1. Clone the project: `git clone https://github.com/lce2011/Kruste.git`
@@ -29,7 +28,6 @@ Check [here](./docs/BUILDING.md) for the full building guide.
 1. Clone the project: `git clone https://github.com/lce2011/Kruste.git`
 2. Go to the directory and build the project: `cargo build --release`
 3. The Kruste binary now sits inside `./target/release/` or `./target/debug/`, incase you built without the `--release` flag.
->>>>>>> refs/remotes/origin/main
 
 <hr>
 

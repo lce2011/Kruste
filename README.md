@@ -4,7 +4,7 @@
 
 <hr>
 
-### Installation & Building
+### Installation
 
 **Windows** Go to the Release tab and download the latest `kruste.exe`
 

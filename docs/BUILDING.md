@@ -20,9 +20,9 @@ You have two options for building on Windows:
 3. Then check in `target/release/` for the `kruste.exe` file (or `target/debug/` if you build without the `--release` flag).
 
 ### Option 2: Custom Build-Script:
-- First run the `full-build.bat` script inside `scripts/`. This builds for Windows, WSL2 Archlinux, Linux glibc, Linux musl-libc and Android BIONIC.
-- Then run `package-appimage.bat` script inside `scripts/` to generate the universal AppImage for all Linux glibc & musl-libc distros using the WSL2 Archlinux build.
-- All the executables sit inside `target/release/` and other subfolders of `target/`.
+1. Run the `full-build.bat` script inside `scripts/`. This builds for Windows, WSL2 Archlinux, Linux glibc, Linux musl-libc and Android BIONIC.
+2. Run `package-appimage.bat` script inside `scripts/` to generate the universal AppImage for all Linux glibc & musl-libc distros using the WSL2 Archlinux build.
+3. All the executables sit inside `target/release/` and other subfolders of `target/`.
 
 > [!NOTE]
 > If you just want the Windows build, just use the first Option.

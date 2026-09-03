@@ -23,7 +23,7 @@ You have two options for building on Windows:
 - Then run `package-appimage.bat` script inside `scripts/` to generate the universal AppImage for all Linux glibc & musl-libc distros using the WSL2 Archlinux build.
 - All the executables sit inside `target/release/` and other subfolders of `target/`.
 
-> [!INFO]
+> [!NOTE]
 > If you just want the Windows build, just use the first Option.
 > If you want to contribute or want to build cross-platform, then use the second Option.
 

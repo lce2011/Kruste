@@ -1,6 +1,6 @@
 # Customization
 
-If Kruste can't find anything in that enviroment variable, e.g. when the variable isn't set, the editor will use the default config, which in JSON format would look like this:
+If Kruste can't find anything in the `KRUSTE_CONFIG` enviroment variable, e.g. when the variable isn't set, the editor will use the default config, which in JSON format would look like this:
 ```json
 {
     "theme": {

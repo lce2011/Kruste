@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Kruste
+Exec=../target/release/kruste
+Icon=../../assets/kruste-icon.png
+Categories=Editor;
+X-AppImage-Name=Kruste
+X-AppImage-Version=UNKNOWN
+X-AppImage-Arch=x86_64

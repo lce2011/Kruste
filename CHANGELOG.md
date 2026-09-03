@@ -1,3 +1,10 @@
+# 0.3.1
+- Custom Build-Scripts for Windows and cross-platform building, as well as packaging the AppImage.
+- New guide on buiding the Kruste project. See [here](./docs/BUILDING.md).
+
+> [!WARNING]
+> This Release includes no software changes!
+
 # 0.3.0
 - Added Search Bar
 - Added Search Bar customization supportt

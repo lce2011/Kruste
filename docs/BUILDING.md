@@ -5,6 +5,7 @@ As this project uses Rust via `cargo` and also has custom Build-Scripts, buildin
 > [!WARNING]
 > The reason for no Build-Scripts existing for Linux/UNIX-systems is, that the Build-Scripts install/update the neccessary packages like `cargo` themselves, but every system uses a different package
 > manager, so it isn't possible to make an universal Build-Script that also works, if you don't have `cargo` or similar packages yet.
+> **Solution to that is WIP!**
 
 > [!WARNING]
 > Regarding the above reason for no Linux/UNIX Build-Scripts, the Windows Build-Scripts require WSL2 with Archlinux being installed.

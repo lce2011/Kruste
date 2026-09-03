@@ -20,7 +20,7 @@ Go to the Release tab and download the latest Linux binary for your libc. Suppor
 
 <hr>
 
-### Buiding
+### Building
 
 Check [here](./docs/BUILDING.md) for the full building guide.
 
@@ -66,4 +66,4 @@ For the full customization docs, see [here](./docs/CUSTOMIZATION.md)
 
 ### Bugs & Issues
 
-If you have a bug, please open up an Issue and describe, what happened and how to replicate the bug.
+If you have a bug, please open up an Issue and describe, what happened and how to replicate the bug. Also give information on what executable you use/how you got the executable (Releases, Building, etc.) and what system you use.

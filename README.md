@@ -6,12 +6,17 @@
 
 ### Installation
 
-**Windows** Go to the Release tab and download the latest `kruste.exe`
+**Windows**
 
-**UNIX** Go to the Release tab and download the latest Linux binary for your libc. Support exists for:
+Go to the Release tab and download the latest `kruste.exe`
+
+**UNIX**
+
+Go to the Release tab and download the latest Linux binary for your libc. Support exists for:
 - x86_64 glibc
 - x86_64 musl-libc
 - aarch64 Android BIONIC
+- Alternative use the universal AppImage, if you don't know your libc.
 
 ### Buiding
 

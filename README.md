@@ -18,6 +18,8 @@ Go to the Release tab and download the latest Linux binary for your libc. Suppor
 - aarch64 Android BIONIC
 - Alternative use the universal AppImage, if you don't know your libc.
 
+<hr>
+
 ### Buiding
 
 Check [here](./docs/BUILDING.md) for the full building guide.

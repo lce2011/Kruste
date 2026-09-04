@@ -41,8 +41,8 @@ impl<'a> SearchBox<'a> {
 
     /* PRIVATE */
     fn search(&mut self, app: &mut App) -> color_eyre::Result<()> {
-        let text_rgb_color = parse_hex_color(app.colors.read_search_fg());
-        let bg_rgb_color = parse_hex_color(app.colors.read_search_bg());
+        let text_rgb_color = parse_hex_color(app.colors.get_search_fg());
+        let bg_rgb_color = parse_hex_color(app.colors.get_search_bg());
         
         let style = Style::default()
             .fg(text_rgb_color)

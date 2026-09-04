@@ -6,7 +6,8 @@ mod search;
 mod helpers;
 
 use crate::app::App;
-use crate::json::{Colors, Cursorline, Lines, Search, Settings, read_and_extract_colors, read_and_extract_settings};
+use crate::helpers::set_gefault_settings;
+use crate::json::{read_and_extract_colors, read_and_extract_settings};
 use crate::search::SearchBox;
 use crate::tui::Tui;
 
@@ -58,26 +59,7 @@ fn main() -> color_eyre::Result<()> {
         Err(e) => {
             println!("Error: Couldn't find Kruste config!\n{}: {}", config_path_variable, e);
             println!("Using default config for now.");
-            app.colors = Colors {
-                text: "#FFFFFF".to_string(),
-                background: "#000000".to_string(),
-                border: "#FFFFFF".to_string(),
-                lines: Lines {
-                    linenumber_fg: "#FFFFFF".to_string(),
-                    linenumber_bg: "#808080".to_string(),
-                    cursorline_fg: "#FFFFFF".to_string(),
-                    cursorline_bg: "#4b4b4b".to_string(),
-                },
-                search: Search {
-                    text: "#FFFFFF".to_string(),
-                    background: "#00FF00".to_string(),
-                },
-            };
-            app.settings = Settings {
-                cursorline: Cursorline {
-                    modifier: "".to_string(),
-                },
-            }
+            set_gefault_settings(&mut app);
         }
     }
 

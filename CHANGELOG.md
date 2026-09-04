@@ -1,3 +1,7 @@
+# 0.3.2
+- Added settings to disable/enable linenumbers
+- Added settings to disable/enable cursorline
+
 # 0.3.1
 - Custom Build-Scripts for Windows and cross-platform building, as well as packaging the AppImage.
 - New guide on buiding the Kruste project. See [here](./docs/BUILDING.md).

@@ -19,6 +19,6 @@ echo Packaging quick-sharun AppImage...
 wsl -d archlinux bash -ic "./helper/quick-sharun --make-appimage"
 
 echo Moving AppImage...
-wsl -d archlinux bash -ic "mv ./*.AppImage ../target/release/"
+wsl -d archlinux bash -ic "mv ./*.AppImage ../target/release/anylinux-x86_64.AppImage"
 
 echo Done. Check the target/release/ folder for the AppImage.

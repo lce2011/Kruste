@@ -39,57 +39,70 @@ pub struct Colors {
 
 #[derive(Debug, Deserialize, Default)]
 pub struct Cursorline {
-    pub modifier: String
+    pub enabled: bool,
+    pub modifier: String,
+}
+
+#[derive(Debug, Deserialize, Default)]
+pub struct Linenumbers {
+    pub enabled: bool,
 }
 
 #[derive(Debug, Deserialize, Default)]
 pub struct Settings {
     pub cursorline: Cursorline,
+    pub linenumbers: Linenumbers,
 }
 
 impl Colors {
-    pub fn read_text(&mut self) -> String {
+    pub fn get_text(&mut self) -> String {
         self.text.clone()
     }
 
-    pub fn read_bg(&mut self) -> String {
+    pub fn get_bg(&mut self) -> String {
         self.background.clone()
     }
 
-    pub fn read_border(&mut self) -> String {
+    pub fn get_border(&mut self) -> String {
         self.border.clone()
     }
     
-    pub fn read_linenumber_fg(&mut self) -> String {
+    pub fn get_linenumber_fg(&mut self) -> String {
         self.lines.linenumber_fg.clone()
     }
 
-    pub fn read_linenumber_bg(&mut self) -> String {
+    pub fn get_linenumber_bg(&mut self) -> String {
         self.lines.linenumber_bg.clone()
     }
 
-    pub fn read_cursorline_fg(&mut self) -> String {
+    pub fn get_cursorline_fg(&mut self) -> String {
         self.lines.cursorline_fg.clone()
     }
 
-    pub fn read_cursorline_bg(&mut self) -> String {
+    pub fn get_cursorline_bg(&mut self) -> String {
         self.lines.cursorline_bg.clone()
     }
 
-    pub fn read_search_fg(&mut self) -> String {
+    pub fn get_search_fg(&mut self) -> String {
         self.search.text.clone()
     }
 
-    pub fn read_search_bg(&mut self) -> String {
+    pub fn get_search_bg(&mut self) -> String {
         self.search.background.clone()
     }
 }
 
-impl Cursorline {
-    pub fn read_modifier(&mut self) -> String {
-        self.modifier.clone()
-    }
-}
+// impl Cursorline {
+//     pub fn get_modifier(&mut self) -> String {
+//         self.modifier.clone()
+//     }
+// }
+// 
+// impl Linenumbers {
+//     pub fn get_enabled(&mut self) -> bool {
+//         self.enabled.clone()
+//     }
+// }
 
 pub fn read_and_extract_colors(json_file: String) -> Colors {
     let json_data = read_to_string(json_file).unwrap();
@@ -128,12 +141,17 @@ pub fn read_and_extract_settings(json_file: String) -> Settings {
     let json_data = read_to_string(json_file).unwrap();
     let json_root: Root = serde_json::from_str(&json_data).unwrap();
 
-    let cursorline_modifier = json_root.theme.settings.cursorline.modifier;
+    let cursorline = json_root.theme.settings.cursorline;
+    let linenumbers = json_root.theme.settings.linenumbers;
 
     Settings {
         cursorline: Cursorline {
-            modifier: cursorline_modifier,
+            enabled: cursorline.enabled,
+            modifier: cursorline.modifier,
         },
+        linenumbers: Linenumbers {
+            enabled: linenumbers.enabled,
+        }
     }
 }
 

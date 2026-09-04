@@ -21,7 +21,11 @@ If Kruste can't find anything in the `KRUSTE_CONFIG` environment variable, e.g. 
         },
         "settings": {
             "cursorline": {
+                "enabled": false,
                 "modifier": "",
+            },
+            "linenumbers": {
+                "enabled": false,
             },
         },
     }
@@ -48,14 +52,18 @@ Changeable colors:
 ### Settings
 
 Changeable settings:
-- Cursorline Modifier
-    - "BOLD" => Modifier::BOLD
-    - "DIM" => Modifier::DIM
-    - "ITALIC" => Modifier::ITALIC
-    - "UNDERLINED" => Modifier::UNDERLINED
-    - "SLOW_BLINK" => Modifier::SLOW_BLINK
-    - "RAPID_BLINK" => Modifier::RAPID_BLINK
-    - "REVERSED" => Modifier::REVERSED
-    - "HIDDEN" => Modifier::HIDDEN
-    - "CROSSED_OUT" => Modifier::CROSSED_OUT
-    - "" => Modifier::empty() -> No modifier
+- Cursorline
+    - Enabled: `true` or `false`
+    - Modifier
+        - "BOLD" => Modifier::BOLD
+        - "DIM" => Modifier::DIM
+        - "ITALIC" => Modifier::ITALIC
+        - "UNDERLINED" => Modifier::UNDERLINED
+        - "SLOW_BLINK" => Modifier::SLOW_BLINK
+        - "RAPID_BLINK" => Modifier::RAPID_BLINK
+        - "REVERSED" => Modifier::REVERSED
+        - "HIDDEN" => Modifier::HIDDEN
+        - "CROSSED_OUT" => Modifier::CROSSED_OUT
+        - "" => Modifier::empty() -> No modifier
+- Linenumbers
+    - Enabled: `true` or `false`

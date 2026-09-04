@@ -11,16 +11,17 @@ use ratatui::{
 };
 
 pub fn render_editor(app: &mut App, frame: &mut Frame) {
-    let text_rgb_color = parse_hex_color(app.colors.read_text());
-    let bg_rgb_color = parse_hex_color(app.colors.read_bg());
-    let border_rgb_color = parse_hex_color(app.colors.read_border());
+    let text_rgb_color = parse_hex_color(app.colors.get_text());
+    let bg_rgb_color = parse_hex_color(app.colors.get_bg());
+    let border_rgb_color = parse_hex_color(app.colors.get_border());
 
-    let linenumber_fg_rgb_color = parse_hex_color(app.colors.read_linenumber_fg());
-    let linenumber_bg_rgb_color = parse_hex_color(app.colors.read_linenumber_bg());
-    let cursorline_fg_rgb_color = parse_hex_color(app.colors.read_cursorline_fg());
-    let cursorline_bg_rgb_color = parse_hex_color(app.colors.read_cursorline_bg());
+    let linenumber_fg_rgb_color = parse_hex_color(app.colors.get_linenumber_fg());
+    let linenumber_bg_rgb_color = parse_hex_color(app.colors.get_linenumber_bg());
+    let cursorline_fg_rgb_color = parse_hex_color(app.colors.get_cursorline_fg());
+    let cursorline_bg_rgb_color = parse_hex_color(app.colors.get_cursorline_bg());
 
-    let cursorline_modifier = app.settings.cursorline.read_modifier();
+    let cursorline = &app.settings.cursorline;
+    let linenumbers = &app.settings.linenumbers;
 
     let block = Block::default()
         .title(format!(" {} ", app.file_name))
@@ -34,37 +35,40 @@ pub fn render_editor(app: &mut App, frame: &mut Frame) {
         .padding(Padding::uniform(0))
         .bg(bg_rgb_color)
         .fg(text_rgb_color);
-
-    let linenumber_style = Style::default()
-        .fg(linenumber_fg_rgb_color)
-        .bg(linenumber_bg_rgb_color);
-    let cursorline_style = Style::default()
-        .add_modifier(match cursorline_modifier.to_uppercase().as_str() {
-            "BOLD" => Modifier::BOLD,
-            "DIM" => Modifier::DIM,
-            "ITALIC" => Modifier::ITALIC,
-            "UNDERLINED" => Modifier::UNDERLINED,
-            "SLOW_BLINK" => Modifier::SLOW_BLINK,
-            "RAPID_BLINK" => Modifier::RAPID_BLINK,
-            "REVERSED" => Modifier::REVERSED,
-            "HIDDEN" => Modifier::HIDDEN,
-            "CROSSED_OUT" => Modifier::CROSSED_OUT,
-            _ => Modifier::empty()
-        })
-        .fg(cursorline_fg_rgb_color)
-        .bg(cursorline_bg_rgb_color);
-
-    app.textarea.set_line_number_style(linenumber_style);
-    app.textarea.set_cursor_line_style(cursorline_style);
     app.textarea.set_block(block);
 
+    if linenumbers.enabled {
+        let linenumber_style = Style::default()
+            .fg(linenumber_fg_rgb_color)
+            .bg(linenumber_bg_rgb_color);
+        app.textarea.set_line_number_style(linenumber_style);
+    }
+    if cursorline.enabled {
+        let cursorline_style = Style::default()
+            .add_modifier(match cursorline.modifier.to_uppercase().as_str() {
+                "BOLD" => Modifier::BOLD,
+                "DIM" => Modifier::DIM,
+                "ITALIC" => Modifier::ITALIC,
+                "UNDERLINED" => Modifier::UNDERLINED,
+                "SLOW_BLINK" => Modifier::SLOW_BLINK,
+                "RAPID_BLINK" => Modifier::RAPID_BLINK,
+                "REVERSED" => Modifier::REVERSED,
+                "HIDDEN" => Modifier::HIDDEN,
+                "CROSSED_OUT" => Modifier::CROSSED_OUT,
+                _ => Modifier::empty()
+            })
+            .fg(cursorline_fg_rgb_color)
+            .bg(cursorline_bg_rgb_color);
+        app.textarea.set_cursor_line_style(cursorline_style);
+    }
+    
     frame.render_widget(&app.textarea, frame.area());
 }
 
 pub fn render_ask_save(app: &mut App, frame: &mut Frame) {
-    let text_rgb_color = parse_hex_color(app.colors.read_text());
-    let bg_rgb_color = parse_hex_color(app.colors.read_bg());
-    let border_rgb_color = parse_hex_color(app.colors.read_border());
+    let text_rgb_color = parse_hex_color(app.colors.get_text());
+    let bg_rgb_color = parse_hex_color(app.colors.get_bg());
+    let border_rgb_color = parse_hex_color(app.colors.get_border());
 
     let block = Block::default()
         .title(" Save to file? ")
@@ -91,9 +95,9 @@ pub fn render_ask_save(app: &mut App, frame: &mut Frame) {
 pub fn render_search_overlay(app: &mut App, searchbox: &mut SearchBox, frame: &mut Frame) {
     render_editor(app, frame);
 
-    let text_rgb_color = parse_hex_color(app.colors.read_text());
-    let bg_rgb_color = parse_hex_color(app.colors.read_bg());
-    let border_rgb_color = parse_hex_color(app.colors.read_border());
+    let text_rgb_color = parse_hex_color(app.colors.get_text());
+    let bg_rgb_color = parse_hex_color(app.colors.get_bg());
+    let border_rgb_color = parse_hex_color(app.colors.get_border());
 
     let block = Block::default()
         .title(" Search ")

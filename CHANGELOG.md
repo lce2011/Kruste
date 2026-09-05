@@ -1,3 +1,13 @@
+# 0.3.2-unix
+- Added a build-script for Linux/UNIX. See [here](./scripts/full-build.sh)
+
+> [!NOTE]
+> This release is only important for Linux/UNIX,
+> which is why it is labeled 0.3.2-unix!
+
+> [!WARNING]
+> This Release includes no software changes!
+
 # 0.3.2
 - Added settings to disable/enable linenumbers
 - Added settings to disable/enable cursorline
